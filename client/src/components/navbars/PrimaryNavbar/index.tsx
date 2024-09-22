@@ -8,17 +8,20 @@ import { userActions } from '@/store/features/userSlice'
 import { useAppDispatch } from '@/store/hooks'
 import { CircleUser, Menu } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const PrimaryNavbar = () => {
     const dispatch = useAppDispatch();
     const toast = useToast();
+    const router = useRouter();
 
     const handleLogout = async () => {
         try {
             const response = await axiosInstance.get("/auth/logout");
             dispatch(userActions.reset());
             toast.toast({title: response.data.message});
+            router.push("/login");
         } catch (err: any) {
             console.log(err);
             if (err?.response?.data?.message) {

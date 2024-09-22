@@ -26,7 +26,7 @@ const withAuth = (Component: any) => {
             if (!user.isLoggedIn) {
                 bootData();
             }
-        },  [user.isLoggedIn]);
+        },  []);
 
         return (
             !user.isLoggedIn

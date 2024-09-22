@@ -11,7 +11,7 @@ const app: Express = express();
 
 app.use(
   cors({
-    origin: ["https://kanban-seven-blush.vercel.app"],
+    origin: ["https://kanban-seven-blush.vercel.app", "http://localhost:3000"],
     methods: ["POST", "GET", "HEAD", "PUT", "DELETE"],
     credentials: true,
   })
