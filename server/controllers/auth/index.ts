@@ -50,6 +50,7 @@ export const login = async (req: Request, res: Response) => {
             httpOnly: true,
             sameSite: "none",
             secure: true,
+            path: "/auth",
             maxAge: 24 * 60 * 60 * 1000
         })
 
@@ -76,6 +77,6 @@ export const boot = async (req: AuthRequest, res: Response) => {
 }
 
 export const logout = async (req: AuthRequest, res: Response) => {
-    res.clearCookie("JWT_HTTPONLY_Cookie");
+    res.clearCookie("JWT_HTTPONLY_Cookie", {path: "/auth"});
     return res.status(200).json({message: "Logged Out Successfully!"});
 }
