@@ -80,7 +80,12 @@ export const boot = async (req: AuthRequest, res: Response) => {
 }
 
 export const logout = async (req: AuthRequest, res: Response) => {
-    res.clearCookie("JWT_HTTPONLY_Cookie", {path: "/auth"});
+    res.cookie('JWT_HTTPONLY_Cookie', "", {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        maxAge: 0
+    })
     req.id = undefined;
     return res.status(200).json({message: "Logged Out Successfully!"});
 }
