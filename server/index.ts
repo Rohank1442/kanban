@@ -10,7 +10,7 @@ dotenv.config();
 const app: Express = express();
 
 app.use(cors({
-    origin:["http://localhost:3000"],
+    origin:["https://kanban-seven-blush.vercel.app/"],
     methods:['POST','GET','HEAD','PUT','DELETE'],
     credentials: true
 }));
