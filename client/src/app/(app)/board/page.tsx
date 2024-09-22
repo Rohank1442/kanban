@@ -7,17 +7,17 @@ import Todo from './components/Todo';
 import InProgress from './components/InProgress';
 import Completed from './components/Completed';
 import PrimaryLoader from '@/components/loaders/PrimaryLoader';
-
+import useTaskManagement from '@/hooks/useTaskManagement';
 const Board = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [tasks, setTasks] = useState<Task[]>([]);
 
-
+    const { loadTasks } = useTaskManagement();
     const fetchTasks = async () => {
         setLoading(true);
         try {
-            const response = await axiosInstance.get("/tasks/getall");
-            setTasks([...response.data.data]);
+            const data = await loadTasks();
+            setTasks([...data]);
         } catch (err) {
             console.log(err);
         } finally {
