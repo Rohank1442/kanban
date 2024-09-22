@@ -1,8 +1,12 @@
-import { Request, Response } from "express";
+import express, { Request, Response } from "express";
 import user from "../../models/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { AuthRequest } from "../../types/app";
+import cookieParser from "cookie-parser";
+
+const app = express();
+app.use(cookieParser());
 
 export const signup = async (req: Request, res: Response) => {
     console.log("signup");
@@ -50,7 +54,6 @@ export const login = async (req: Request, res: Response) => {
             httpOnly: true,
             sameSite: "none",
             secure: true,
-            path: "/auth",
             maxAge: 24 * 60 * 60 * 1000
         })
 
@@ -78,5 +81,6 @@ export const boot = async (req: AuthRequest, res: Response) => {
 
 export const logout = async (req: AuthRequest, res: Response) => {
     res.clearCookie("JWT_HTTPONLY_Cookie", {path: "/auth"});
+    req.id = undefined;
     return res.status(200).json({message: "Logged Out Successfully!"});
 }
